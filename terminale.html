@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        var utent = "user"
+        
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <title>Terminale</title>
+</head>
+<body>  
+<script src="comand.js"></script>    
+<script>
+    
+    var contatore_div = 0;
+    
+    new_session();
+    
+    var counter = 0;
+    var text = "";
+    
+    document.addEventListener("keydown", function(event) {
+        // Ottieni il codice del tasto premuto
+        var tastoPremuto = event.key;
+        if (tastoPremuto == "Enter"){
+        
+            //creo un nuovo span e ci inserico il contenuto di text, poi elimino tutto da current e dalla variabile text
+            var nuovoSpan = document.createElement("span");
+            nuovoSpan.id = "span-"+counter;
+            nuovoSpan.textContent = text;
+            nuovoSpan.className = "parole";
+            current.parentNode.insertBefore(nuovoSpan, current);
+            current.textContent = "";
+            text = "";
+            counter++;
+        
+            comand();
+            
+        }else if (tastoPremuto == "Backspace"){
+            if(current.innerHTML.length > 0){
+                // Elimina l'ultimo carattere dello span current
+                text = text.slice(0, -1);
+                current.textContent = "";
+                current.innerHTML = text;
+            }else{
+                if(counter>0){
+                    // Porta tutto il contenuto dell'ultimo span creato nello span current e toglie l'ultimo carattere
+                    counter -= 1;
+                    var corrente = document.getElementById("span-"+counter);
+                    text = corrente.innerHTML;
+                    text = text.slice(0, -1);
+                    current.innerHTML = text;
+                    var genitore = corrente.parentNode;
+
+                    // Rimuovere l'ultimo span creato utilizzando il metodo removeChild()
+                    genitore.removeChild(corrente);
+                
+                }
+            }
+            
+        }else if(tastoPremuto == "ArrowUp"){
+            
+            
+            
+        }else{
+            
+            var shiftPremuto = event.shiftKey;
+            var ctrlPremuto = event.ctrlKey;
+            
+            if (shiftPremuto && tastoPremuto.length === 1) {
+                tastoPremuto = tastoPremuto.toUpperCase();
+                text += tastoPremuto;
+                current.textContent = "";
+                current.innerHTML = text;
+            }
+            
+            // Escludo tutti i tasti che non devono essere stampati a schermo
+            if (shiftPremuto || ctrlPremuto || tastoPremuto == "CapsLock" || tastoPremuto == "Meta" || tastoPremuto == "F1" || tastoPremuto == "F2" || tastoPremuto == "F3" || tastoPremuto == "F4" || tastoPremuto == "F5" || tastoPremuto == "F6" || tastoPremuto == "F7" || tastoPremuto == "F8" || tastoPremuto == "F9" || tastoPremuto == "F10" || tastoPremuto == "F11" || tastoPremuto == "F12" || tastoPremuto == " " || tastoPremuto == "ArrowUp"){
+            
+            }else{
+                text += tastoPremuto;
+                current.textContent = "";
+                current.innerHTML = text;
+            }
+            
+            if (tastoPremuto == " "){
+            
+                var nuovoSpan = document.createElement("span");
+                var SpanSpazio = document.createElement("span");
+                nuovoSpan.id = "span-"+counter;
+                nuovoSpan.className = "parole";
+                nuovoSpan.textContent = text;
+                SpanSpazio.textContent = " ";
+                current.parentNode.insertBefore(nuovoSpan, current);
+                current.parentNode.insertBefore(SpanSpazio, current);
+                current.textContent = "";
+                text = "";
+                counter++;
+            }
+        }
+        
+    });
+    function new_session(){
+    
+        // Seleziona tutti gli elementi con la classe desiderata
+        var elements = document.getElementsByClassName("parole");
+
+        // Itera attraverso gli elementi e rimuovi l'id
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].removeAttribute("id");
+        }
+
+        
+        counter = 0;
+        var current = document.getElementById("current");
+        if (contatore_div > 0){
+            current.remove();
+    
+        }
+    
+        var nuovoDiv = document.createElement('div');
+        nuovoDiv.id = 'div-' + contatore_div;
+
+        var span1 = document.createElement('span');
+        if (utent == "root"){
+        
+            span1.textContent = '[root@root]#';
+        
+        }else {
+            
+            span1.textContent = '[user@user]$';
+            
+        }
+        
+        nuovoDiv.appendChild(span1);
+
+        var span2 = document.createElement('span');
+        span2.id = 'current';
+        nuovoDiv.appendChild(span2);
+
+        var nuovoOutput = document.createElement('div');
+        nuovoOutput.id = 'output-'+contatore_div;
+        nuovoDiv.appendChild(nuovoOutput);
+
+        document.body.appendChild(nuovoDiv);
+        contatore_div++;
+    }
+    
+function stampa(testo) {
+
+    var elemento = document.getElementById("ultimo_output");
+    if (elemento !== null) {
+        elemento.removeAttribute("id");
+    }
+    // Aggiunta delle parentesi per garantire che la sottrazione venga eseguita prima
+    var output = document.getElementById("output-" + (contatore_div - 1));
+
+    // Creazione dello span
+    var mySpan = document.createElement("span");
+
+    // Aggiunta del testo all'interno dello span
+    mySpan.textContent = testo;
+    mySpan.id = "ultimo_output";
+    output.appendChild(mySpan);
+}
+
+function rimuovi(){
+    
+    var elementoDaRimuovere = document.getElementById("ultimo_output");
+    if (elementoDaRimuovere !== null) {
+  // Ottieni il genitore dell'elemento
+  var genitore = elementoDaRimuovere.parentNode;
+
+  // Rimuovi l'elemento dal suo genitore
+  genitore.removeChild(elementoDaRimuovere);
+  }
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+</script>
+
+</body>
+</html>
