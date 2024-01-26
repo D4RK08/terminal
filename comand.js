@@ -9,10 +9,10 @@ async function comand(){
         }else if(secondo_comando=="b"){
             var body = document.body;
             body.style.color = "white";
-            
+
         }else if(secondo_comando=="z"){
             var body = document.body;
-            body.style.color = #ffcbcb;
+            body.style.color = "pink";
         }
         
     }else if (comando_principale== "su"){
