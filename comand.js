@@ -12,7 +12,7 @@ async function comand(){
             
         }else if(secondo_comando=="z"){
             var body = document.body;
-            body.style.color = "#ffcbcb";
+            body.style.color = #ffcbcb;
         }
         
     }else if (comando_principale== "su"){
