@@ -9,7 +9,21 @@ async function comand(){
         }else if(secondo_comando=="b"){
             var body = document.body;
             body.style.color = "white";
-
+        }else if(secondo_comando=="c"){
+            var body = document.body;
+            body.style.color = "red";
+        }else if(secondo_comando=="d"){
+            var body = document.body;
+            body.style.color = "red";
+        }else if(secondo_comando=="e"){
+            var body = document.body;
+            body.style.color = "DarkBlue";
+        }else if(secondo_comando=="f"){
+            var body = document.body;
+            body.style.color = "BlueViolet";
+        }else if(secondo_comando=="g"){
+            var body = document.body;
+            body.style.color = "yellow";
         }else if(secondo_comando=="z"){
             var body = document.body;
             body.style.color = "pink";
