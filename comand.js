@@ -27,6 +27,12 @@ async function comand(){
         }else if(secondo_comando=="h"){
             var body = document.body;
             body.style.color = "DarkOrange";
+        }else if(secondo_comando=="i"){
+            var body = document.body;
+            body.style.color = "orange";
+        }else if(secondo_comando=="l"){
+            var body = document.body;
+            body.style.color = "violet";
         }else if(secondo_comando=="z"){
             var body = document.body;
             body.style.color = "pink";
